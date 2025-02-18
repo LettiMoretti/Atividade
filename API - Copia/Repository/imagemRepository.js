@@ -1,7 +1,7 @@
 const db = require("./conexao.js");
 
 function save (referencia, data_criacao, titulo) {
-    const sql = 'INSERT INTO imagens (referencia, data_criacao, titulo) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO tb_imagens (referencia, data_criacao, titulo) VALUES (?, ?, ?)';
 
     db.execute(sql, [referencia, data_criacao, titulo], (err, results) => {
         if (err) {
@@ -13,7 +13,7 @@ function save (referencia, data_criacao, titulo) {
 }
 
 function update (id, referencia, data_criacao, titulo) {
-    const sql = 'UPDATE imagens SET referencia=?, data_criacao=?, titulo=? WHERE id=?';
+    const sql = 'UPDATE tb_imagens SET referencia=?, data_criacao=?, titulo=? WHERE id=?';
 
     db.execute(sql, [referencia, data_criacao, titulo, id], (err, results) => {
         if (err) {
@@ -24,20 +24,29 @@ function update (id, referencia, data_criacao, titulo) {
     });
 }
 
-function findByPk (id) {
-    const sql = 'SELECT * FROM imagens WHERE id=?';
+const buscarPorId = async (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT * FROM tb_imagens WHERE id = ?";
+        
+        db.execute(sql, [id], (err, results) => {
+            if (err) {
+                console.error('Erro ao buscar a imagem!', err);
+                reject(err);
+                return;
+            }
 
-    db.execute(sql, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar a imagem!', err);
-            return;
-        }
-        console.log(results);
+            if (results.length === 0) {
+                resolve(null); // Retorna null se a imagem não for encontrada
+            } else {
+                resolve(results[0]); // Retorna a primeira imagem encontrada
+            }
+        });
     });
-}
+};
+
 
 function deletar (id) {
-    const sql = 'DELETE FROM imagens WHERE id=?';
+    const sql = 'DELETE FROM tb_imagens WHERE id=?';
 
     db.execute(sql, [id], (err, results) => {
         if (err) {
@@ -48,4 +57,4 @@ function deletar (id) {
     });
 }
 
-module.exports = { save, update, findByPk, deletar };
+module.exports = { save, update, buscarPorId, deletar };

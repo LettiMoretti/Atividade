@@ -1,7 +1,7 @@
 const db = require("./conexao.js");
 
 function save (nome, data_criacao) {
-    const sql = 'INSERT INTO usuarios (nome, data_criacao) VALUES (?, ?)';
+    const sql = 'INSERT INTO tb_usuarios (nome, data_criacao) VALUES (?, ?)';
 
     db.execute(sql, [nome, data_criacao], (err, results) => {
         if (err) {
@@ -13,7 +13,7 @@ function save (nome, data_criacao) {
 }
 
 function update (id, nome, data_criacao) {
-    const sql = 'UPDATE usuarios SET nome=?, data_criacao=? WHERE id=?';
+    const sql = 'UPDATE tb_usuarios SET nome=?, data_criacao=? WHERE id=?';
 
     db.execute(sql, [nome, data_criacao, id], (err, results) => {
         if (err) {
@@ -24,20 +24,28 @@ function update (id, nome, data_criacao) {
     });
 }
 
-function findByPk (id) {
-    const sql = 'SELECT * FROM usuarios WHERE id=?';
+const buscarPorId = async (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT * FROM tb_usuarios WHERE id=?";
+        
+        db.execute(sql, [id], (err, results) => {
+            if (err) {
+                console.error('Erro ao buscar o usuario!', err);
+                reject(err);
+                return;
+            }
 
-    db.execute(sql, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar a usuario!', err);
-            return;
-        }
-        console.log(results);
+            if (results.length === 0) {
+                resolve(null); // Retorna null se o usuario não for encontrado
+            } else {
+                resolve(results[0]); // Retorna o primeiro usuario encontrado
+            }
+        });
     });
-}
+};
 
 function deletar (id) {
-    const sql = 'DELETE FROM usuarios WHERE id=?';
+    const sql = 'DELETE FROM tb_usuarios WHERE id=?';
 
     db.execute(sql, [id], (err, results) => {
         if (err) {
@@ -48,4 +56,4 @@ function deletar (id) {
     });
 }
 
-module.exports = { save, update, findByPk, deletar };
+module.exports = { save, update, buscarPorId, deletar };

@@ -1,6 +1,7 @@
 const express = require('express');
-const usuarioController = require('../Controller/ControllerUsuario/usuarioController.js');
-const imagemController = require('../Controller/ControllerIamgem/imagemController.js');
+const usuarioController = require('../Controller/usuarioController.js');
+const imagemController = require('../Controller/imagemController.js');
+const awsController = require('../Controller/awsController.js');
 const router = express.Router();
 
 //Usuário
@@ -22,5 +23,9 @@ router.delete('/imagens/:id', imagemController.removerImagem);
 router.get('/imagens/:id', imagemController.buscarImagem);
 // Editar
 router.put('/imagens/:id', imagemController.atualizarImagem);
+
+// AWS
+// Buscar
+router.get('/aws/:id', awsController.buscarImagem);
 
 module.exports = router;

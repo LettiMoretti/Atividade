@@ -9,8 +9,10 @@ function deletar(id) {
     repositorio.deletar(id);
 }
 
-function buscar(id) {
-    return repositorio.buscar(id);
+const buscar = async (id) => {
+    const res = await repositorio.buscarPorId(id);
+    console.log("Retorno Repositorio: ", res);
+    return res;
 }
 
 function atualizar(id, nome) {

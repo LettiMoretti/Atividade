@@ -1,5 +1,5 @@
-// Usuário
-const Usuario = sequelize.define('Usuario', {
+// Usuario
+const Imagem = sequelize.define('Usuario', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -12,7 +12,7 @@ const Usuario = sequelize.define('Usuario', {
     data_criacao: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
-    },
+    }
 }, {
     tableName: 'usuarios',
     timestamps: false,

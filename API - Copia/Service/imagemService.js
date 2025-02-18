@@ -9,8 +9,15 @@ function deletar(id) {
     repositorio.deletar(id);
 }
 
-function buscar(id) {
-    return repositorio.buscar(id);
+const buscar = async (id) => {
+    // criar arquivo de config
+    //importar aqui
+    //utilizar os metodos do s3 para buscar imagem
+    //fazer download
+    const res = await repositorio.buscarPorId(id);
+    console.log("Retorno Repositorio: ", res);
+    return res;
+
 }
 
 function atualizar(id, referencia, titulo) {
