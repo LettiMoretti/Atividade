@@ -10,10 +10,6 @@ function deletar(id) {
 }
 
 const buscar = async (id) => {
-    // criar arquivo de config
-    // importar aqui
-    // utilizar os metodos do s3 para buscar imagem
-    // fazer download
     const res = await repositorio.buscarPorId(id);
     console.log("Retorno Repositorio: ", res);
     return res;
@@ -22,7 +18,7 @@ const buscar = async (id) => {
 
 function atualizar(id, referencia, titulo) {
     const dataCriacao = new Date().toISOString().split('T')[0];
-    repositorio.atualizar(id, referencia, dataCriacao, titulo);
+    repositorio.update(id, referencia, dataCriacao, titulo);
 }
 
 module.exports = { save, deletar, buscar, atualizar };

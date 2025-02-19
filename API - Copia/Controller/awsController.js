@@ -3,9 +3,9 @@ const awsService=require("../Service/awsService.js");
 // Adicionar imagem
 const adicionarImagem = async (req, res) => {
     try {
-        const { referencia, titulo } = req.body;
+        const { idUsuario } = req.body;
 
-        await imagemService.save(referencia, titulo);
+        await awsService.save(idUsuario);
         res.status(201).json({Message: "Imagem salva com sucesso!"});
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -25,7 +25,5 @@ const buscarImagem = async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar imagem!' });
     }
 };
-
-
 
 module.exports = { adicionarImagem, buscarImagem };

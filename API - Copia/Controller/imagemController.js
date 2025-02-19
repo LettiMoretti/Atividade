@@ -15,17 +15,11 @@ const adicionarImagem = async (req, res) => {
  // Deletar uma imagem
  const removerImagem = async (req, res) => {
     try {
-        const { id } = req.params;
-        
-        await imagemService.buscar(id);
-        if (imagem) {
-            await imagemService.deletar(req.params.id);
-            res.json({ message: 'Imagem deletada com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Imagem não encontrada!' });
-        }
+        const id = req.params;
+        await imagemService.deletar(req.params.id);
+        res.json({ message: 'Imagem deletada com sucesso!' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar imagem!' });
+        res.status(404).json({ error: 'Imagem não encontrada!' });
     }
 };
 
@@ -46,16 +40,13 @@ const buscarImagem = async (req, res) => {
 // Atualizar uma imagem por Id
 const atualizarImagem = async (req, res) => {
     try {
+        const { id } = req.params;
         const { referencia, titulo } = req.body;
-        const imagem = await imagemService.buscar(req.params.id);
-        if (imagem) {
-            await imagemService.atualizar(req.params.id, referencia, titulo);
-            res.json({ message: 'Imagem atualizada com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Imagem não encontrada!' });
-        }
+        
+        await imagemService.atualizar(id, referencia, titulo);
+        res.json({ message: 'Imagem atualizada com sucesso!' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar imagem!' });
+        res.status(404).json({ error: 'Imagem não encontrada!' });
     }
 };
 

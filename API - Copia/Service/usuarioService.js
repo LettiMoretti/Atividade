@@ -17,7 +17,7 @@ const buscar = async (id) => {
 
 function atualizar(id, nome) {
     const dataCriacao = new Date().toISOString().split('T')[0];
-    repositorio.atualizar(id, nome, dataCriacao);
+    repositorio.update(id, nome, dataCriacao);
 }
 
 module.exports = { save, deletar, buscar, atualizar };

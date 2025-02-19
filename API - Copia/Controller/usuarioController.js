@@ -3,9 +3,9 @@ const usuarioService=require("../Service/usuarioService.js");
 // Adicionar um usuário
 const adicionarUsuario = async (req, res) => {
     try {
-        const { nome, data_criacao } = req.body;
+        const { nome } = req.body;
         
-        await usuarioService.save(nome, data_criacao);
+        await usuarioService.save(nome);
         res.status(201).json({Message: "Usuário salvo com sucesso!"});
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -15,13 +15,9 @@ const adicionarUsuario = async (req, res) => {
 // Deletar um usuário
 const removerUsuario = async (req, res) => {
     try {
-        const usuario = await usuarioService.buscar(req.params.id);
-        if (usuario) {
+        const id = req.params;
             await usuarioService.deletar(req.params.id);
             res.json({ message: 'Usuário deletado com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Usuário não encontrado!' });
-        }
     } catch (error) {
         res.status(500).json({ error: 'Erro ao deletar usuário!' });
     }
@@ -45,15 +41,12 @@ const buscarUsuario = async (req, res) => {
 const atualizarUsuario = async (req, res) => {
     try {
         const { nome } = req.body;
-        const usuario = await usuarioService.buscar(req.params.id);
-        if (usuario) {
-            await usuarioService.atualizar(req.params.id, nome);
-            res.json({ message: 'Usuário atualizado com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Usuário não encontrado!' });
-        }
+        const { id } = req.params;
+
+        await usuarioService.atualizar(id, nome);
+        res.json({ message: 'Usuário atualizado com sucesso!' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar usuário!' });
+        res.status(404).json({ error: 'Usuário não encontrado! CONTROLLER' });
     }
 };
 

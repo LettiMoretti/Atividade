@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: 'localhost', // ou o endereço do seu servidor
   user: 'root', // seu usuário do MySQL
   password: '', // sua senha do MySQL
-  database: 'db_apiiago', // o nome do banco de dados
+  database: 'db_iago', // o nome do banco de dados
 });
 
 // Conectar ao banco de dados
