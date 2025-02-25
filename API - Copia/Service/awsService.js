@@ -9,8 +9,8 @@ async function save(idUsuario) {
     }
 }
 
-async function buscar(id) {
-    return repositorio.buscar(id);
+async function buscar(referencia) {
+    return repositorio.buscarImagem(referencia);
 }
 
 module.exports = { save, buscar };

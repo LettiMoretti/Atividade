@@ -15,7 +15,9 @@ const adicionarImagem = async (req, res) => {
 // Buscar uma imagem por Id
 const buscarImagem = async (req, res) => {
     try {
-        const imagem = await awsService.buscar(req.params.id);
+        const { referencia } = req.params;  // Pegando a referência da imagem da URL
+
+        const imagem = await awsService.buscar(referencia);  // Buscar imagem do S3
         if (imagem) {
             res.json(imagem);
         } else {
