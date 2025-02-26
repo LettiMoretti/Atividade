@@ -27,7 +27,7 @@ router.put('/imagens/:id', imagemController.atualizarImagem);
 // AWS
 // Adicionar
 router.post('/aws', awsController.adicionarImagem);
-// Buscar
-router.get('/aws/:id', awsController.buscarImagem);
+// Buscar e fazer download
+router.get('/aws/:referencia', awsController.buscarImagem);
 
 module.exports = router;

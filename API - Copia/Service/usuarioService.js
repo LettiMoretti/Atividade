@@ -1,4 +1,4 @@
-const repositorio=require("../Repository/usuarioRepository");
+const repositorio = require("../Repository/usuarioRepository");
 
 function save(nome) {
     const dataCriacao = new Date().toISOString().split('T')[0];

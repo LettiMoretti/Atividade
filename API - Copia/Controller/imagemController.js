@@ -1,4 +1,4 @@
-const imagemService=require("../Service/imagemService.js");
+const imagemService = require("../Service/imagemService.js");
 
 // Adicionar uma imagem
 const adicionarImagem = async (req, res) => {
